@@ -1,23 +1,23 @@
 import cv2
-
+from ultralytics import YOLO
 from networks import YOLOv8
 from time import time
 
 # Initialize yolov8 object detector
-model_path = "src/models/onnx/yolov8n.onnx"
-yolov8_detector = YOLOv8(model_path, conf_thres=0.2, iou_thres=0.3)
+model_sizes = ['n', 's', 'm', 'l', 'x']
 
-# Read image
-img = cv2.imread("src/data/cars.jpg")
+for i in len(model_sizes):
+    model_path = f"src/models/onnx/yolov8{model_sizes[i]}.onnx"
+    yolov8_detector = YOLOv8(model_path, conf_thres=0.2, iou_thres=0.3)
 
-# Detect Objects
-start = time()
-boxes, scores, class_ids = yolov8_detector(img)
-end = time()
+    # Read image
+    img = cv2.imread("src/data/cars.jpg")
 
-# Draw detections
-combined_img = yolov8_detector.draw_detections(img)
-cv2.namedWindow("Detected Objects", cv2.WINDOW_NORMAL)
-cv2.imshow("Detected Objects", combined_img)
-cv2.imwrite("doc/img/detected_objects.jpg", combined_img)
-cv2.waitKey(0)
+    # Detect Objects
+    start = time()
+    boxes, scores, class_ids = yolov8_detector(img)
+    end = time()
+
+
+    print(f"Model: Yolov8{model_sizes[i]}")
+    print(f"Detection time: {end - start:.2f}s")
