@@ -6,8 +6,8 @@ from time import time
 # Initialize yolov8 object detector
 model_sizes = ['n', 's', 'm', 'l', 'x']
 
-for i in len(model_sizes):
-    model_path = f"src/models/onnx/yolov8{model_sizes[i]}.onnx"
+for i in model_sizes:
+    model_path = f"src/models/onnx/yolov8{i}.onnx"
     yolov8_detector = YOLOv8(model_path, conf_thres=0.2, iou_thres=0.3)
 
     # Read image
