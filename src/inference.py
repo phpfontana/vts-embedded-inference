@@ -19,5 +19,5 @@ for i in model_sizes:
     end = time()
 
 
-    print(f"Model: Yolov8{model_sizes[i]}")
+    print(f"Model: Yolov8{i}")
     print(f"Detection time: {end - start:.2f}s")
