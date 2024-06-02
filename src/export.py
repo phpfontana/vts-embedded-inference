@@ -1,6 +1,7 @@
 from ultralytics import YOLO
 
-model = YOLO('src/models/base/yolov8n.pt')
+model_sizes = ['n', 's', 'm', 'l', 'x']
 
-# Export to ONNX 
-model.export(format='onnx')
+for i in model_sizes:
+    model = YOLO(f'src/models/onnx/yolov8{i}.pt')
+    model.export(format='onnx', int8=True)
